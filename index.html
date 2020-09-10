@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>VuePets</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mt-0">
+      <a class="navbar-brand" href="#">VuePets</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">VuePets</h1>
+        <p class="lead">The best place to look at cute pets!</p>
+      </div>
+    </div>
+
+    <div class="container text-center mb-4">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input v-model="hideDog" type="checkbox" checked autocomplete="off">Dogs
+        </label>
+        <label class="btn btn-secondary active">
+          <input v-model="hideCat" type="checkbox" checked autocomplete="off">Cats
+        </label>
+        <label class="btn btn-secondary active">
+          <input v-model="hideBird" type="checkbox" checked autocomplete="off">Birds
+        </label>
+        <label class="btn btn-secondary active">
+          <input v-model="hideHamster" type="checkbox" checked autocomplete="off">Hamsters
+        </label>
+      </div>
+    </div>
+
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 mx-4">
+      <div v-if="hideDog" class="col mb-4">
+        <div class="card h-100">
+          <img :src="dog" class="card-img-top" height="300">
+          <div class="card-body">
+            <h5 class="card-title">Dogs</h5>
+            <button class="btn btn-primary" v-on:click="nextImage('dog')">Next</button>
+          </div>
+        </div>
+      </div>
+      <div v-if="hideCat" class="col mb-4">
+        <div class="card h-100">
+          <img :src="cat" class="card-img-top" height="300">
+          <div class="card-body">
+            <h5 class="card-title">Cats</h5>
+            <button class="btn btn-primary" v-on:click="nextImage('cat')">Next</button>
+          </div>
+        </div>
+      </div>
+      <div v-if="hideBird" class="col mb-4">
+        <div class="card h-100">
+          <img :src="bird" class="card-img-top" height="300">
+          <div class="card-body">
+            <h5 class="card-title">Birds</h5>
+            <button class="btn btn-primary" v-on:click="nextImage('bird')">Next</button>
+          </div>
+        </div>
+      </div>
+      <div v-if="hideHamster" class="col mb-4">
+        <div class="card h-100">
+          <img :src="hamster" class="card-img-top" height="300">
+          <div class="card-body">
+            <h5 class="card-title">Hamsters</h5>
+            <button class="btn btn-primary" v-on:click="nextImage('hamster')">Next</button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card h-100">
+          <img :src="petLove" class="card-img-top" :height="loveRange">
+          <div class="card-body">
+            <h5 class="card-title">How much do you love pets?</h5>
+            <div class="slidecontainer">
+              <input v-model="loveRange" type="range" min="100" max="300" value="100" class="slider" id="myRange">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    loveRange: 100,
+    hideDog: true,
+    hideCat: true,
+    hideBird: true,
+    hideHamster: true,
+    dog: 'https://santansun.com/wp-content/uploads/2018/11/5b7fdeab1900001d035028dc.jpeg',
+    dogAlt: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/16B90/production/_107427039_gettyimages-636475496.jpg',
+    cat: 'https://images.squarespace-cdn.com/content/v1/55c945e0e4b04386fb9f8162/1531837146897-RJA7PBBKEMGJWGAGDA2B/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/cute-3252251.jpg?format=2500w',
+    catAlt: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/kitten-playing-with-toy-mouse-royalty-free-image-590055188-1542816918.jpg?crop=1.00xw:0.758xh;0,0.132xh&resize=480:*',
+    bird: 'https://parade.com/wp-content/uploads/2020/06/iStock-481057316.jpg',
+    birdAlt: 'https://petcentral.chewy.com/wp-content/uploads/2017/09/cockatiel-1.jpg',
+    hamster: 'https://cdn.drfoxmag.com/2020/04/1-Why-Do-Hamsters-Die-Suddenly-640x300-1.jpg',
+    hamsterAlt: 'https://squeaksandnibbles.com/wp-content/uploads/2019/06/Cute-hamster-names-SN-long.jpg',
+    petLove: 'https://images-na.ssl-images-amazon.com/images/I/61TQ4qebeBL._AC_SL1500_.jpg'
+  },
+  methods: {
+    nextImage (pet) {
+      var temp = '';
+      switch (pet) {
+        case 'dog':
+          temp = this.dog;
+          this.dog = this.dogAlt;
+          this.dogAlt = temp;
+          break;
+        case 'cat':
+          temp = this.cat;
+          this.cat = this.catAlt;
+          this.catAlt = temp;
+          break;
+        case 'bird':
+          temp = this.bird;
+          this.bird = this.birdAlt;
+          this.birdAlt = temp;
+          break;
+        case 'hamster':
+          temp = this.hamster;
+          this.hamster = this.hamsterAlt;
+          this.hamsterAlt = temp;
+          break;
+      }
+    }
+  }
+})
+</script>
